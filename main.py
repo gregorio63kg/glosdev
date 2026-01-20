@@ -13,7 +13,13 @@ class GlosDEVApp(ctk.CTk):
         self.title("GlosDEV")
         self.geometry("400x120")
         self.attributes('-topmost', True)
-        self.overrideredirect(True) # Quitar bordes
+        self.overrideredirect(True) 
+        
+        # Color clave para invisibilidad (solo el fondo desaparece)
+        self.transparent_color = "#000001"
+        self.config(bg=self.transparent_color) 
+        self.attributes("-transparentcolor", self.transparent_color)
+        
         self.configure(fg_color=COLORS["bg_dark"])
         
         # Variables para arrastre
@@ -26,9 +32,9 @@ class GlosDEVApp(ctk.CTk):
         # UI State Variables
         self.current_state = "compact" # compact, list, detail, add
 
-        # Main Layout
-        self.main_container = ctk.CTkFrame(self, fg_color="transparent")
-        self.main_container.pack(fill="both", expand=True, padx=15, pady=15)
+        # Main Layout (Configurado con el color transparente)
+        self.main_container = ctk.CTkFrame(self, fg_color=self.transparent_color, corner_radius=0)
+        self.main_container.pack(fill="both", expand=True, padx=5, pady=5)
         
         # Habilitar arrastre en el contenedor principal
         self.main_container.bind("<Button-1>", self.start_move)
@@ -65,10 +71,12 @@ class GlosDEVApp(ctk.CTk):
         # Buscar en DB
         conn = sqlite3.connect('data/glosdev.db')
         cursor = conn.cursor()
-        cursor.execute("SELECT name, language, description FROM functions WHERE name LIKE ? OR language LIKE ?", (f'%{query}%', f'%{query}%'))
+        query_str = f'%{query}%'
+        cursor.execute("SELECT name, language, description FROM functions WHERE name LIKE ? OR language LIKE ?", (query_str, query_str))
         rows = cursor.fetchall()
         
         for row in rows:
+            # Las tarjetas mantienen su fondo para legibilidad, o pueden ser transparentes también
             card = ResultCard(self.results_frame, name=row[0], language=row[1], description=row[2])
             card.pack(fill="x", pady=5)
         

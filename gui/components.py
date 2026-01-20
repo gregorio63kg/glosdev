@@ -26,11 +26,11 @@ class SearchBar(ctk.CTkFrame):
         self.entry.pack(side="left", fill="x", expand=True, padx=(0, 10))
         self.entry.bind("<KeyRelease>", lambda e: on_search_callback(self.entry.get()))
         
-        self.add_btn = ctk.CTkButton(self.top_row, text="+", width=35, height=35, corner_radius=17, 
+        self.add_btn = ctk.CTkButton(self.top_row, text="+", width=20, height=20, corner_radius=17, 
                                      command=on_add_callback, fg_color=COLORS["accent"])
         self.add_btn.pack(side="left", padx=2)
         
-        self.sync_btn = ctk.CTkButton(self.top_row, text="↻", width=35, height=35, corner_radius=17, 
+        self.sync_btn = ctk.CTkButton(self.top_row, text="↻", width=20, height=20, corner_radius=10, 
                                       command=on_sync_callback, fg_color=COLORS["bg_light"])
         self.sync_btn.pack(side="left", padx=2)
 

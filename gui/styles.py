@@ -20,5 +20,5 @@ FONTS = {
 
 STYLE_CONFIG = {
     "border_width": 1,
-    "corner_radius": 12,
+    "corner_radius": 5,
 }
