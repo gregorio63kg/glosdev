@@ -5,7 +5,7 @@ from gui.styles import COLORS, FONTS
 class ResultCard(ctk.CTkFrame):
     def __init__(self, master, name, language, description, **kwargs):
         # Creamos el cuadrito con sus bordes
-        super().__init__(master, fg_color=COLORS["bg_light"], corner_radius=2, **kwargs)
+        super().__init__(master, fg_color=COLORS["bg_light"], corner_radius=0, **kwargs)
         
         # El nombre resaltado para que se vea clarito
         self.name_label = ctk.CTkLabel(self, text=name, font=("Inter", 14, "bold"), text_color=COLORS["accent"])
@@ -27,6 +27,10 @@ class SearchBar(ctk.CTkFrame):
         # Fila Superior: Donde escribes y los botones de acción
         self.top_row = ctk.CTkFrame(self, fg_color="transparent")
         self.top_row.pack(fill="x")
+
+        # El "manubrio" para mover la ventana (un icono de cruz de flechas)
+        self.move_handle = ctk.CTkLabel(self.top_row, text="✥", font=("Inter", 18), text_color=COLORS["accent"], cursor="fleur")
+        self.move_handle.pack(side="left", padx=(0, 5))
 
         # El campo donde escribes la búsqueda. Se activa con cada tecla que sueltas.
         self.entry = ctk.CTkEntry(self.top_row, placeholder_text="Buscar...", height=20, corner_radius=36)
