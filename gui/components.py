@@ -18,6 +18,13 @@ class ResultCard(ctk.CTkFrame):
         # La descripción por si se te olvida para qué sirve el bicho
         self.desc_label = ctk.CTkLabel(self, text=description, font=("Inter", 11), text_color=COLORS["text_dim"], wraplength=350)
         self.desc_label.pack(anchor="w", padx=10, pady=(0, 5))
+        
+        # Ajustar el ancho del texto cuando cambie el tamaño de la tarjeta
+        self.bind("<Configure>", self.update_wraplength)
+
+    def update_wraplength(self, event):
+        # El ancho de la etiqueta debe ser un pelo menos que el ancho de la tarjeta para el padding
+        self.desc_label.configure(wraplength=event.width - 30)
 
 # El buscador que está siempre arriba mandando
 class SearchBar(ctk.CTkFrame):
